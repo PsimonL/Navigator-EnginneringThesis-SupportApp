@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <script src="../static/js/script.js" defer></script>
+    <title>Planer trasy dla robotów mobilnych - Navigator</title>
+</head>
+<body>
+    <header>
+        <h1>Planer Trasy - Navigator</h1>
+    </header>
+    <div id="project-info">
+        <p>Oprogramowanie będące częścią większego projektu, dla nawigacji robotów i systemów autonomicznych</p>
+    </div>
+
+    <div id="load-data-form">
+        <p>1. Załaduj dane:</p>
+        <form action="#" method="post" enctype="multipart/form-data" id="data-upload-form">
+            <label for="file-input">Wybierz plik JSON:</label>
+            <input type="file" id="file-input" name="file-input" accept=".json" required><br>
+            <div class="method-container">
+                <div class="method-box">
+                    <p>Plik powinien zawierać informacje:</p>
+                    <ul>
+                        <li>Wymiary pomieszczenia</li>
+                        <li>Przeszkody</li>
+                        <li>Punkt startowy</li>
+                        <li>Punkt końcowy</li>
+                    </ul>
+                    <p>Przykładowy JSON: </p>
+                    <pre class="language-json">
+{
+  "wymiary_pomieszczenia": [
+    [0, 0], [600, 0], [600, 600], [0, 600]
+  ],
+  "punkt_startowy": [50, 50],
+  "punkt_koncowy": [550, 550],
+  "przeszkody": [
+    [100, 1, 50, 350],
+    [200, 100, 50, 499],
+    [350, 1, 50, 500]
+  ]
+}
+
+                    </pre>
+                </div>
+            </div>
+            <button id="load-data-btn" type="submit">Załaduj Dane</button>
+        </form>
+    </div>
+
+
+    <p>2. Wybierz jedną z poniższych metod, aby zoptymalizować swoją trasę:</p>
+    <div class="method-container">
+        <div class="method-box">
+            <button class="method-button">A* Algorithm</button>
+            <p>Algorytm A* znajduje najkrótszą ścieżkę w grafie ważonym, uwzględniającą oszacowanie kosztu dojścia i koszt pozostania.</p>
+        </div>
+
+        <div class="method-box">
+            <button class="method-button">Dijkstra's Algorithm</button>
+            <p>Algorytm Dijkstry znajduje najkrótszą ścieżkę w grafie ważonym, uwzględniającą koszt dojścia do danego węzła.</p>
+        </div>
+
+        <div class="method-box">
+            <button class="method-button">RRT Algorithm</button>
+            <p>Algorytm RRT (Rapidly-Exploring Random Tree) generuje drzewo eksploracyjne w celu znalezienia ścieżki przez przestrzeń stanów.</p>
+        </div>
+
+        <div class="method-box">
+            <button class="method-button">RRT* Algorithm</button>
+            <p>Algorytm RRT* to udoskonalona wersja algorytmu RRT, zapewniająca lepszą zbieżność do optymalnej ścieżki.</p>
+        </div>
+
+        <div class="method-box">
+            <button class="method-button">ACO Algorithm</button>
+            <p>Algorytm kolonii mrówek (Ant Colony Optimization) optymalizuje trasę na podstawie śladów feromonowych pozostawionych przez mrówki.</p>
+        </div>
+
+        <div class="method-box">
+            <button class="method-button">DQN Algorithm</button>
+            <p>Algorytm DQN (Deep Q-Network) wykorzystuje sieci neuronowe do inteligentnego planowania trasy.</p>
+        </div>
+    </div>
+</body>
+</html>
+
