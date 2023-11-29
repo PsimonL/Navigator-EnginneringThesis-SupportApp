@@ -38,6 +38,10 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.text())
             .then(data => {
                 console.log('Success:', data);
+                sugestionDescriptionInput.value = '';
+                nameInput.value = '';
+                emailInput.value = '';
+                phoneNumberInput.value = '';
             })
             .catch((error) => {
                 console.error('Error:', error);

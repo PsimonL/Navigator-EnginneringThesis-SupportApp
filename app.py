@@ -1,23 +1,14 @@
 from flask import Flask, render_template, request, jsonify
-import sqlite3
-from flask_sqlalchemy import SQLAlchemy
+from backend.models import db, Suggestions
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///NavigatorDataBasetifier.sqlite'
-db = SQLAlchemy(app)
+db.init_app(app)
 
-
-class Suggestions(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    problem_description = db.Column(db.String(255))
-    name = db.Column(db.String(100))
-    email = db.Column(db.String(100))
-    phone = db.Column(db.Integer, unique=True, nullable=False)
 
 
 @app.route('/save_data', methods=['POST'])
 def save_data():
-    print("ŁAPIE")
     data = request.get_json()
 
     suggestion = Suggestions(
@@ -29,7 +20,6 @@ def save_data():
 
     db.session.add(suggestion)
     db.session.commit()
-    print("ZŁAPAŁO")
 
     return jsonify({'message': 'Data saved successfully'})
 
