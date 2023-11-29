@@ -14,6 +14,11 @@ document.addEventListener('DOMContentLoaded', function () {
         var emailInput = document.querySelector('input[name="email"]');
         var phoneNumberInput = document.querySelector('input[name="phone"]');
 
+        if (!sugestionDescriptionInput.value || !nameInput.value || !emailInput.value || !phoneNumberInput.value) {
+            alert('Wszystkie pola muszą być wypełnione, aby formularz został zapisany!!!');
+            return;
+        }
+
         if (sugestionDescriptionInput && nameInput && emailInput && phoneNumberInput) {
             console.log("Działa?")
             var problemDescription = sugestionDescriptionInput.value;
@@ -37,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(response => response.text())
             .then(data => {
+                alert('Poprawnie zapisano i wysłano formularz do serwera bazo-danowego. :)');
                 console.log('Success:', data);
                 sugestionDescriptionInput.value = '';
                 nameInput.value = '';
