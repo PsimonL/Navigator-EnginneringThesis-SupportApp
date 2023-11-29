@@ -1,23 +1,35 @@
 from flask import Flask, render_template, request, jsonify
 import sqlite3
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-DATABASE = 'database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///NavigatorDataBasetifier.sqlite'
+db = SQLAlchemy(app)
+
+
+class Suggestions(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    problem_description = db.Column(db.String(255))
+    name = db.Column(db.String(100))
+    email = db.Column(db.String(100))
+    phone = db.Column(db.Integer, unique=True, nullable=False)
 
 
 @app.route('/save_data', methods=['POST'])
 def save_data():
+    print("ŁAPIE")
     data = request.get_json()
 
-    conn = sqlite3.connect(DATABASE)
-    cursor = conn.cursor()
-    cursor.execute('''
-        INSERT INTO suggestions (problem_desc, name, email, phone)
-        VALUES (?, ?, ?, ?)
-    ''', (data['problem_description'], data['name'], data['email'], data['phone']))
+    suggestion = Suggestions(
+        problem_description=data['problem_description'],
+        name=data['name'],
+        email=data['email'],
+        phone=int(data['phone'])
+    )
 
-    conn.commit()
-    conn.close()
+    db.session.add(suggestion)
+    db.session.commit()
+    print("ZŁAPAŁO")
 
     return jsonify({'message': 'Data saved successfully'})
 
@@ -51,4 +63,5 @@ def dqn():
 
 
 if __name__ == '__main__':
+    db.create_all()
     app.run(debug=True)

@@ -9,31 +9,39 @@ document.addEventListener('DOMContentLoaded', function () {
     submitButton.addEventListener('click', function (event) {
         event.preventDefault();
 
-        var problemDescription = document.querySelector('textarea[name="problem_description"]').value;
-        var name = document.querySelector('input[name="name"]').value;
-        var email = document.querySelector('input[name="email"]').value;
-        var phoneNumber = document.querySelector('input[name="phone"]').value;
+        var sugestionDescriptionInput = document.querySelector('textarea[name="problem_description"]');
+        var nameInput = document.querySelector('input[name="name"]');
+        var emailInput = document.querySelector('input[name="email"]');
+        var phoneNumberInput = document.querySelector('input[name="phone"]');
 
-        var formData = {
-            problem_description: problemDescription,
-            name: name,
-            email: email,
-            phone: phoneNumber
-        };
+        if (sugestionDescriptionInput && nameInput && emailInput && phoneNumberInput) {
+            console.log("Działa?")
+            var problemDescription = sugestionDescriptionInput.value;
+            var name = nameInput.value;
+            var email = emailInput.value;
+            var phoneNumber = phoneNumberInput.value;
 
-        fetch('/save_data', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+            var formData = {
+                problem_description: problemDescription,
+                name: name,
+                email: email,
+                phone: phoneNumber
+            };
+
+            fetch('/save_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
     });
 });
