@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
     loadDataBtn.addEventListener("click", function(event) {
         if (isFileLoaded) {
             methodButtons.forEach(function(button) {
-                button.style.backgroundColor = "#4CAF50"; // Zmiana koloru na zielony
+                button.style.backgroundColor = "#4CAF50";
             });
             console.log("Poprawnie załadowane dane:");
             console.log(loadedData);
@@ -37,16 +37,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         event.preventDefault();
     });
-    //
-    // methodButtons.forEach(function(button) {
-    //     button.addEventListener("click", function() {
-    //         if (!isFileLoaded) {
-    //             alert("Aby używać tych funkcji, wczytaj poprawny plik JSON i zaznacz przycisk 'Wczytaj dane'.");
-    //         } else if (button.style.backgroundColor !== "rgb(76, 175, 80)") {
-    //             alert("Kliknij 'Wczytaj dane', aby umożliwić korzystanie z tej funkcji.");
-    //         }
-    //     });
-    // });
 
     methodButtons.forEach(function(button) {
         button.addEventListener("click", function() {
@@ -55,21 +45,31 @@ document.addEventListener("DOMContentLoaded", function() {
             } else if (button.style.backgroundColor !== "rgb(76, 175, 80)") {
                 alert("Kliknij 'Wczytaj dane', aby umożliwić korzystanie z tej funkcji.");
             } else {
-                switch (button.textContent) {
-                    case "A* Algorithm":
-                    case "Dijkstra's Algorithm":
-                    case "ACO Algorithm":
-                        window.location.href = "dij_a_aco.html";
-                        break;
-                    case "RRT Algorithm":
-                    case "RRT* Algorithm":
-                        window.location.href = "rrt.html";
-                        break;
-                    case "DQN Algorithm":
-                        window.location.href = "dqn.html";
-                        break;
+                var selectedAlgorithm = button.textContent;
+                console.log("selectedAlgorithm = ", selectedAlgorithm)
+                // switch (button.textContent) {
+                //     case "A* Algorithm":
+                //     case "Dijkstra's Algorithm":
+                //     case "ACO Algorithm":
+                //     case "RRT Algorithm":
+                //     case "RRT* Algorithm":
+                //         window.location.href = "rrt_dij_a_aco.html";
+                //         break;
+                //     case "DQN Algorithm":
+                //         window.location.href = "dqn.html";
+                //         break;
+                // }
+                var selectedPath;
+                if(selectedAlgorithm === "Dijkstra's Algorithm" || selectedAlgorithm === "A* Algorithm" || selectedAlgorithm === "ACO Algorithm"){
+                    selectedPath = "/dij_a_aco";
+                } else if (selectedAlgorithm === "DQN Algorithm"){
+                    selectedPath = "/dqn";
+                } else if (selectedAlgorithm === "RRT Algorithm" || selectedAlgorithm === "RRT* Algorithm"){
+                    selectedPath = "/rrt";
                 }
-            }
+
+                window.location.href = selectedPath;
+                }
         });
     });
 });
