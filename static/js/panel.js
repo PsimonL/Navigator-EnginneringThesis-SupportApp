@@ -47,25 +47,13 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 var selectedAlgorithm = button.textContent;
                 console.log("selectedAlgorithm = ", selectedAlgorithm)
-                // switch (button.textContent) {
-                //     case "A* Algorithm":
-                //     case "Dijkstra's Algorithm":
-                //     case "ACO Algorithm":
-                //     case "RRT Algorithm":
-                //     case "RRT* Algorithm":
-                //         window.location.href = "rrt_dij_a_aco.html";
-                //         break;
-                //     case "DQN Algorithm":
-                //         window.location.href = "dqn.html";
-                //         break;
-                // }
                 var selectedPath;
                 if(selectedAlgorithm === "Dijkstra's Algorithm" || selectedAlgorithm === "A* Algorithm" || selectedAlgorithm === "ACO Algorithm"){
-                    selectedPath = "/dij_a_aco";
+                    selectedPath = "/panel/dij_a_aco";
                 } else if (selectedAlgorithm === "DQN Algorithm"){
-                    selectedPath = "/dqn";
+                    selectedPath = "/panel/dqn";
                 } else if (selectedAlgorithm === "RRT Algorithm" || selectedAlgorithm === "RRT* Algorithm"){
-                    selectedPath = "/rrt";
+                    selectedPath = "/panel/rrt";
                 }
 
                 window.location.href = selectedPath;
