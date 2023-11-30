@@ -5,6 +5,10 @@ document.addEventListener("DOMContentLoaded", function() {
     var methodButtons = document.querySelectorAll(".method-button");
     var loadedData;
     var isFileLoaded = false;
+    var wymiary_pomieszczenia;
+    var punkt_startowy;
+    var punkt_koncowy;
+    var przeszkody;
 
     fileInput.addEventListener("change", function() {
         if (fileInput.files.length > 0) {
@@ -31,7 +35,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 button.style.backgroundColor = "#4CAF50";
             });
             console.log("Poprawnie załadowane dane:");
-            console.log(loadedData);
+            console.log(typeof loadedData);
+
+            wymiary_pomieszczenia = loadedData.wymiary_pomieszczenia;
+            console.log("Wymiary pomieszczenia:", wymiary_pomieszczenia);
+
+            punkt_startowy = loadedData.punkt_startowy;
+            console.log("Punkt startowy:", punkt_startowy);
+
+            punkt_koncowy = loadedData.punkt_koncowy;
+            console.log("Punkt końcowy:", punkt_koncowy);
+
+            przeszkody = loadedData.przeszkody;
+            console.log("Przeszkody:", przeszkody);
         } else {
             alert("Aby załadować dane, wczytaj poprawny plik JSON.");
         }
@@ -56,8 +72,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     selectedPath = "/panel/rrt";
                 }
 
-                // window.location.href = selectedPath;
-                window.location.href = selectedPath + "?selectedAlgorithm=" + encodeURIComponent(selectedAlgorithm);
+                window.location.href = selectedPath + "?selectedAlgorithm=" + encodeURIComponent(selectedAlgorithm) +
+                    "&wymiary_pomieszczenia=" + encodeURIComponent(JSON.stringify(wymiary_pomieszczenia)) +
+                    "&punkt_startowy=" + encodeURIComponent(JSON.stringify(punkt_startowy)) +
+                    "&punkt_koncowy=" + encodeURIComponent(JSON.stringify(punkt_koncowy)) +
+                    "&przeszkody=" + encodeURIComponent(JSON.stringify(przeszkody));
+
+                // window.location.href = selectedPath + "?selectedAlgorithm=" + encodeURIComponent(selectedAlgorithm);
             }
         });
     });
