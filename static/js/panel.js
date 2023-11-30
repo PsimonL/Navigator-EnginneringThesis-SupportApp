@@ -56,8 +56,9 @@ document.addEventListener("DOMContentLoaded", function() {
                     selectedPath = "/panel/rrt";
                 }
 
-                window.location.href = selectedPath;
-                }
+                // window.location.href = selectedPath;
+                window.location.href = selectedPath + "?selectedAlgorithm=" + encodeURIComponent(selectedAlgorithm);
+            }
         });
     });
 });
