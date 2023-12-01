@@ -50,6 +50,8 @@ def dij_a_aco():
     print("selected_algorithm = ", sel_alg)
     if sel_alg == "Dijkstra's Algorithm" or sel_alg == "A* Algorithm":
         start_point, goal_point, grid, obstacles, room_coords, ret_path = a_star_dijkstra_driver(sel_alg)
+        return render_template('rrt_dij_a_aco.html', start_point=start_point, goal_point=goal_point, grid=grid,
+                               obstacles=obstacles, room_coords=room_coords, ret_path=ret_path)
 
     return render_template('rrt_dij_a_aco.html')
 
