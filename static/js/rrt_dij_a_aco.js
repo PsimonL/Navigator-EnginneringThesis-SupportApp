@@ -1,4 +1,4 @@
-function generatePlot() {
+function generatePlot(start_point, goal_point, grid, obstacles, room_coords, ret_path) {
     const fig = Plotly;
     var NODE_SIZE = 1;
 
@@ -44,9 +44,9 @@ function generatePlot() {
     });
 
     // Dodanie ścieżki, jeśli istnieje
-    if (path) {
-        const path_x = path.map(point => point[0]);
-        const path_y = path.map(point => point[1]);
+    if (ret_path) {
+        const path_x = ret_path.map(point => point[0]);
+        const path_y = ret_path.map(point => point[1]);
 
         Plotly.addTraces(fig, {
             x: path_x,
@@ -88,6 +88,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const urlParams = new URLSearchParams(window.location.search);
     const selectedAlgorithm = urlParams.get('selectedAlgorithm') || '__algo_name__';
 
+    const start_point = JSON.parse('{{ start_point|tojson|safe }}');
+    const goal_point = JSON.parse('{{ goal_point|tojson|safe }}');
+    const grid = JSON.parse('{{ grid|tojson|safe }}');
+    const obstacles = JSON.parse('{{ obstacles|tojson|safe }}');
+    const room_coords = JSON.parse('{{ room_coords|tojson|safe }}');
+    const ret_path = JSON.parse('{{ ret_path|tojson|safe }}');
+
     const wymiaryPomieszczenia = JSON.parse(urlParams.get('wymiary_pomieszczenia')) || null;
     const punktStartowy = JSON.parse(urlParams.get('punkt_startowy')) || null;
     const punktKoncowy = JSON.parse(urlParams.get('punkt_koncowy')) || null;
@@ -117,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function() {
     selectedSolutionBar.innerHTML = 'Wybrane rozwiązanie ';
     selectedSolutionBar.appendChild(algorithmNameElement);
 
-    generatePlot();
+    generatePlot(start_point, goal_point, grid, obstacles, room_coords, ret_path);
 });
 
 
