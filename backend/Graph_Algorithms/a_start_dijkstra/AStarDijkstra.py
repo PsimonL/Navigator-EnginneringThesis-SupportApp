@@ -57,7 +57,5 @@ def a_star_dijkstra_driver(choice):
     end_time = time.time()
     execution_time = end_time - start_time
     print(f"Czas wykonania: {execution_time} sekundy")
-    return start_point, goal_point, grid, obstacles, room_coords, ret_path
 
-
-# a_star_dijkstra_driver(A*)
+    return start_point, goal_point, obstacles, room_coords, ret_path

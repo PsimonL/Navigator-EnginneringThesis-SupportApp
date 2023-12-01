@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import json
+import jsonpickle
 
 from backend.models import db, Suggestions
 from backend.Graph_Algorithms.a_start_dijkstra.AStarDijkstra import a_star_dijkstra_driver
@@ -51,12 +52,9 @@ def dij_a_aco():
     sel_alg, wp, ps, pk, p = get_input()
     print("selected_algorithm = ", sel_alg)
     if sel_alg == "Dijkstra's Algorithm" or sel_alg == "A* Algorithm":
-        start_point, goal_point, grid, obstacles, room_coords, ret_path = a_star_dijkstra_driver(sel_alg)
-
-        serialized_grid = json.dumps(grid, default=lambda o: o.__dict__)
+        start_point, goal_point, obstacles, room_coords, ret_path = a_star_dijkstra_driver(sel_alg)
 
         return render_template('rrt_dij_a_aco.html', start_point=start_point, goal_point=goal_point,
-                               grid=serialized_grid,
                                obstacles=obstacles, room_coords=room_coords, ret_path=ret_path)
 
     return render_template('rrt_dij_a_aco.html')

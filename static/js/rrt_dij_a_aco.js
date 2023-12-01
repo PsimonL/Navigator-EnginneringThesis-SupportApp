@@ -1,16 +1,16 @@
-function generatePlot(start_point, goal_point, grid, obstacles, room_coords, ret_path) {
+function generatePlot(start_point, goal_point, obstacles, room_coords, ret_path) {
     const fig = Plotly;
     var NODE_SIZE = 1;
 
-        // Tworzenie punktów na wykresie dla węzłów
-    for (const node of grid) {
-        Plotly.addTraces(fig, {
-            x: [node.x],
-            y: [node.y],
-            mode: 'markers',
-            marker: { size: NODE_SIZE, color: 'white' }
-        });
-    }
+    //     // Tworzenie punktów na wykresie dla węzłów
+    // for (const node of grid) {
+    //     Plotly.addTraces(fig, {
+    //         x: [node.x],
+    //         y: [node.y],
+    //         mode: 'markers',
+    //         marker: { size: NODE_SIZE, color: 'white' }
+    //     });
+    // }
 
     // Tworzenie obszarów przeszkód
     for (const obstacle of obstacles) {
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function() {
     selectedSolutionBar.innerHTML = 'Wybrane rozwiązanie ';
     selectedSolutionBar.appendChild(algorithmNameElement);
 
-    generatePlot(start_point, goal_point, grid, obstacles, room_coords, ret_path);
+    generatePlot(start_point, goal_point, obstacles, room_coords, ret_path);
 });
 
 
