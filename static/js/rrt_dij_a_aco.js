@@ -88,13 +88,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const urlParams = new URLSearchParams(window.location.search);
     const selectedAlgorithm = urlParams.get('selectedAlgorithm') || '__algo_name__';
 
-    const start_point = JSON.parse('{{ start_point|tojson|safe }}');
-    const goal_point = JSON.parse('{{ goal_point|tojson|safe }}');
-    const grid = JSON.parse('{{ grid|tojson|safe }}');
-    const obstacles = JSON.parse('{{ obstacles|tojson|safe }}');
-    const room_coords = JSON.parse('{{ room_coords|tojson|safe }}');
-    const ret_path = JSON.parse('{{ ret_path|tojson|safe }}');
-
     const wymiaryPomieszczenia = JSON.parse(urlParams.get('wymiary_pomieszczenia')) || null;
     const punktStartowy = JSON.parse(urlParams.get('punkt_startowy')) || null;
     const punktKoncowy = JSON.parse(urlParams.get('punkt_koncowy')) || null;
@@ -124,7 +117,14 @@ document.addEventListener("DOMContentLoaded", function() {
     selectedSolutionBar.innerHTML = 'Wybrane rozwiązanie ';
     selectedSolutionBar.appendChild(algorithmNameElement);
 
-    generatePlot(start_point, goal_point, obstacles, room_coords, ret_path);
+    const start_point = JSON.parse('{{ start_point|tojson|safe }}');
+    const goal_point = JSON.parse('{{ goal_point|tojson|safe }}');
+    const grid = JSON.parse('{{ grid|tojson|safe }}');
+    const obstacles = JSON.parse('{{ obstacles|tojson|safe }}');
+    const room_coords = JSON.parse('{{ room_coords|tojson|safe }}');
+    const ret_path = JSON.parse('{{ ret_path|tojson|safe }}');
+
+    // generatePlot(start_point, goal_point, obstacles, room_coords, ret_path);
 });
 
 

@@ -47,15 +47,15 @@ def main(algorithm_choice):
     execution_time = end_time - start_time
     print(f"Czas wykonania algorytmu: {execution_time} sekundy")
     # ui_runner(start_point, goal_point, grid, obstacles, room_coords, ret_path)
-    return start_point, goal_point, grid, obstacles, room_coords, ret_path
+    return start_point, goal_point, obstacles_coords, room_coords, ret_path
 
 
 def a_star_dijkstra_driver(choice):
     start_time = time.time()
     print("Start")
-    start_point, goal_point, grid, obstacles, room_coords, ret_path = main(choice)
+    start_point, goal_point, obstacles_coords, room_coords, ret_path = main(choice)
     end_time = time.time()
     execution_time = end_time - start_time
     print(f"Czas wykonania: {execution_time} sekundy")
 
-    return start_point, goal_point, obstacles, room_coords, ret_path
+    return start_point, goal_point, obstacles_coords, room_coords, ret_path
