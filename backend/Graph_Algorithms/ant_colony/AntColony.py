@@ -4,9 +4,9 @@ import multiprocessing
 
 from backend.Graph_Algorithms.ConstVars import THRASH_NODES
 from backend.Graph_Algorithms.GeometryUtils import get_obstacles, is_obstacle_inside_room
-from GridUtils import create_grid, find_nodes_by_coordinates
-from Pathfinding import ant_colony
-from UiUtils import ui_runner
+from backend.Graph_Algorithms.ant_colony.GridUtils import create_grid, find_nodes_by_coordinates
+from backend.Graph_Algorithms.ant_colony.Pathfinding import ant_colony
+from backend.Graph_Algorithms.ant_colony.UiUtils import ui_runner
 
 def driver():
     start_time = time.time()

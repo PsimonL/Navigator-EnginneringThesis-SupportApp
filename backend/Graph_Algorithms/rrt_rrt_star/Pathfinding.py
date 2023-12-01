@@ -1,8 +1,8 @@
 import random
 
 from backend.Graph_Algorithms.ConstVars import INNER_WIDTH, INNER_HEIGHT
-from RRTNodes import RRTNode
-from EuclideanDistanceUtils import euclidean_distance
+from backend.Graph_Algorithms.rrt_rrt_star.RRTNodes import RRTNode
+from backend.Graph_Algorithms.rrt_rrt_star.EuclideanDistanceUtils import euclidean_distance
 
 def get_random_point():
     return RRTNode(random.uniform(0, INNER_WIDTH), random.uniform(0, INNER_HEIGHT))

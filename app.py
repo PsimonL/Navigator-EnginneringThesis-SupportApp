@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, jsonify
 from backend.models import db, Suggestions
+from backend.Graph_Algorithms.a_start_dijkstra.AStarDijkstra import a_star_dijkstra_driver
+from backend.Graph_Algorithms.rrt_rrt_star import RRT_RRT_Star
+from backend.Graph_Algorithms.ant_colony import AntColony
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///NavigatorDataBasetifier.sqlite'
@@ -23,6 +26,13 @@ def save_data():
 
     return jsonify({'message': 'Data saved successfully'})
 
+def get_input():
+    selected_algorithm = request.args.get('selectedAlgorithm')
+    wymiary_pomieszczenia = request.args.get('wymiary_pomieszczenia')
+    punkt_startowy = request.args.get('punkt_startowy')
+    punkt_koncowy = request.args.get('punkt_koncowy')
+    przeszkody = request.args.get('przeszkody')
+    return selected_algorithm, wymiary_pomieszczenia, punkt_startowy, punkt_koncowy, przeszkody
 
 @app.route('/')
 def main():
@@ -36,19 +46,25 @@ def panel():
 
 @app.route('/panel/dij_a_aco')
 def dij_a_aco():
-    print("USED dij_a_aco")
+    sel_alg, wp, ps, pk, p = get_input()
+    print("selected_algorithm = ", sel_alg)
+    if sel_alg == "Dijkstra's Algorithm" or sel_alg == "A* Algorithm":
+        start_point, goal_point, grid, obstacles, room_coords, ret_path = a_star_dijkstra_driver(sel_alg)
+
     return render_template('rrt_dij_a_aco.html')
 
 
 @app.route('/panel/rrt')
 def rrt():
-    print("USED rrt")
+    sel_alg, wp, ps, pk, p = get_input()
+    print("selected_algorithm = ", sel_alg)
     return render_template('rrt_dij_a_aco.html')
 
 
 @app.route('/panel/dqn')
 def dqn():
-    print("USED dqn")
+    sel_alg, wp, ps, pk, p = get_input()
+    print("selected_algorithm = ", sel_alg)
     return render_template('dqn.html')
 
 

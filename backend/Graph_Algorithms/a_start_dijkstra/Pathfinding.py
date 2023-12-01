@@ -33,12 +33,9 @@ def a_star_dijkstra(start, goal, algorithm_choice):  # https://en.wikipedia.org/
             neighbor.parent_ptr = current_node
             neighbor.G = tentative_g_score
 
-            # if True, means A* and heuristic distance from current to finish,
-            # elif False means Dijkstra was picked and neighbor.H = 0
-            if algorithm_choice:
+            if algorithm_choice == "A* Algorithm":
                 neighbor.H = diagonal_distance((neighbor.x, neighbor.y), (goal.x, goal.y))
 
-            # So if False means neighbor.F = neighbor.G + 0 => neighbor.F = neighbor.G
             neighbor.F = neighbor.G + neighbor.H
 
             if neighbor not in open_set:

@@ -1,10 +1,10 @@
 import math
 
-from RRTNodes import RRTNode
-from EuclideanDistanceUtils import euclidean_distance
-from LocalConstVars import MAX_ITERATIONS, EXPANSION_DISTANCE
-from Pathfinding import get_random_point
-from Pathfinding import nearest_node
+from backend.Graph_Algorithms.rrt_rrt_star.RRTNodes import RRTNode
+from backend.Graph_Algorithms.rrt_rrt_star.EuclideanDistanceUtils import euclidean_distance
+from backend.Graph_Algorithms.rrt_rrt_star.LocalConstVars import MAX_ITERATIONS, EXPANSION_DISTANCE
+from backend.Graph_Algorithms.rrt_rrt_star.Pathfinding import get_random_point
+from backend.Graph_Algorithms.rrt_rrt_star.Pathfinding import nearest_node
 from backend.Graph_Algorithms.GeometryUtils import is_node_inside_obstacle
 
 

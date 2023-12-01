@@ -1,6 +1,6 @@
 from backend.Graph_Algorithms.ConstVars import np, NUM_COLS, NUM_ROWS
 from backend.Graph_Algorithms.GeometryUtils import is_node_inside_room, is_node_inside_obstacle
-from Nodes import Nodes
+from backend.Graph_Algorithms.a_start_dijkstra.Nodes import Nodes
 
 
 def create_grid(obstacles_coords, room_coords) -> list:

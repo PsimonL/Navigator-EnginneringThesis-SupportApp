@@ -1,7 +1,7 @@
 import numpy as np
 
 from backend.Graph_Algorithms.ConstVars import NUM_ROWS, NUM_COLS
-from Nodes import Nodes
+from backend.Graph_Algorithms.ant_colony.Nodes import Nodes
 from backend.Graph_Algorithms.GeometryUtils import is_node_inside_obstacle, is_node_inside_room
 
 

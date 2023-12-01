@@ -77,8 +77,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     "&punkt_startowy=" + encodeURIComponent(JSON.stringify(punkt_startowy)) +
                     "&punkt_koncowy=" + encodeURIComponent(JSON.stringify(punkt_koncowy)) +
                     "&przeszkody=" + encodeURIComponent(JSON.stringify(przeszkody));
-
-                // window.location.href = selectedPath + "?selectedAlgorithm=" + encodeURIComponent(selectedAlgorithm);
             }
         });
     });

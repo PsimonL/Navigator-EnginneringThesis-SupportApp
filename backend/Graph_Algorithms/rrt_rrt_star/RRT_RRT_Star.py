@@ -1,10 +1,10 @@
 import time
 
-from RRTNodes import RRTNode
+from backend.Graph_Algorithms.rrt_rrt_star.RRTNodes import RRTNode
 from backend.Graph_Algorithms.GeometryUtils import get_obstacles, is_obstacle_inside_room
-from RRT_Pathfinding import rrt_algorithm
-from RRT_StarPathfinding import rrt_star_algorithm
-from UiUtils import rrt_ui_runner
+from backend.Graph_Algorithms.rrt_rrt_star.RRT_Pathfinding import rrt_algorithm
+from backend.Graph_Algorithms.rrt_rrt_star.RRT_StarPathfinding import rrt_star_algorithm
+from backend.Graph_Algorithms.rrt_rrt_star.UiUtils import rrt_ui_runner
 
 
 def rrt_main(flag):

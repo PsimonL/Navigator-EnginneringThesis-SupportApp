@@ -1,4 +1,4 @@
-from PheromoneUtils import initialize_pheromones, build_path, update_pheromones
+from backend.Graph_Algorithms.ant_colony.PheromoneUtils import initialize_pheromones, build_path, update_pheromones
 
 
 def ant_colony(start_node, goal_node, grid):
