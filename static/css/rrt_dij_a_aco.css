@@ -82,9 +82,10 @@ h3{
 #download-section {
     clear: both;
     padding-top: 20px;
+    justify-content: space-around;
 }
 
-#download-button {
+#download-path{
     display: inline-block;
     padding: 20px 40px;
     font-size: 20px;
@@ -94,5 +95,9 @@ h3{
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-right: 10px; /* Dodaj odstęp między przyciskami */
 }
 
+#download-path:hover {
+    background-color: #d77e0a; /* Zmiana koloru po najechaniu myszką */
+}

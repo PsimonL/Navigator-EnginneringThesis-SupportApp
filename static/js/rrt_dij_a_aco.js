@@ -132,6 +132,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     generatePlot(punktStartowy, punktKoncowy, przeszkody, wymiaryPomieszczenia, sciezka);
-});
 
+    const downloadPathButton = document.getElementById('download-path');
+    downloadPathButton.addEventListener('click', function () {
+        downloadPathToFile(sciezka);
+    });
+});
+function downloadPathToFile(sciezka) {
+    const pathData = JSON.stringify(sciezka, null, 2);
+    const blob = new Blob([pathData], { type: 'text/plain' });
+    const fileName = 'sciezka.txt';
+
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = fileName;
+
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+}
 
