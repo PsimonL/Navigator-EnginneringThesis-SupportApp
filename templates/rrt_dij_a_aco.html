@@ -41,7 +41,10 @@
         </div>
     </div>
     <div id="center-section">
-        <p>Example output</p>
+        <p>Dla podanych danych ścieżka została znaleziona, a jej koordynaty wynoszą:</p>
+        {% if ret_path %}
+            <p>{{ ret_path | tojson | safe }}</p>
+        {% endif %}
     </div>
     <div id="download-section">
         <button id="download-button">Download</button>
