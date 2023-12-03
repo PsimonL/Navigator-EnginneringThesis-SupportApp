@@ -36,30 +36,23 @@ document.addEventListener("DOMContentLoaded", function() {
     selectedSolutionBar.innerHTML = 'Wybrane rozwiązanie ';
     selectedSolutionBar.appendChild(algorithmNameElement);
 
-    // console.log("start_point = ", start_point)
-    // console.log("goal_point = ", goal_point)
+    console.log("start_point = ", start_point)
+    console.log("goal_point = ", goal_point)
     console.log("obstacles = ", obstacles)
-    // console.log("room_coords = ", room_coords)
-    // console.log("ret_path = ", ret_path)
+    console.log("room_coords = ", room_coords)
+    console.log("ret_path = ", ret_path)
 
-    // let start_point = JSON.parse(start_point)
-    // let goal_pointt = JSON.parse(goal_point)
-    let obstacless = JSON.parse(obstacles);
-    // let room_coordss = JSON.parse(room_coords)
-    // let ret_pathh = JSON.parse(ret_path)
+    let sciezka = JSON.parse(ret_path);
 
 
     // generatePlot(start_point, goal_point, obstacles, room_coords, ret_path);
     const NODE_SIZE = 1;
     let traces = []
 
-    const chuj = [[100, 1, 50, 350], [200, 100, 50, 499], [350, 1, 50, 500]];
-    obstacless.forEach(obstacle => {
+
+    przeszkody.forEach(obstacle => {
         let rect_x = [obstacle[0], obstacle[0] + obstacle[2], obstacle[0] + obstacle[2], obstacle[0], obstacle[0]];
         let rect_y = [obstacle[1], obstacle[1], obstacle[1] + obstacle[3], obstacle[1] + obstacle[3], obstacle[1]];
-        console.log("obstacle = " + obstacle)
-        console.log("rect_x = " + rect_x)
-        console.log("rect_y = " + rect_y)
         let trace = {
             x: rect_x,
             y: rect_y,
@@ -72,35 +65,58 @@ document.addEventListener("DOMContentLoaded", function() {
         traces.push(trace)
     });
 
+    const traceStart = {
+        x: [punktStartowy[0]],
+        y: [punktStartowy[1]],
+        mode: 'markers',
+        marker: { size: NODE_SIZE * 8, color: 'purple' }
+    };
 
+    traces.push(traceStart)
 
-    // const traceStart = {
-    //     x: [startPt[0]],
-    //     y: [startPt[1]],
-    //     mode: 'markers',
-    //     marker: { size: NODE_SIZE * 8, color: 'yellow' }
-    // };
-    //
-    // const traceGoal = {
-    //     x: [goalPt[0]],
-    //     y: [goalPt[1]],
-    //     mode: 'markers',
-    //     marker: { size: NODE_SIZE * 8, color: 'green' }
-    // };
+    const traceGoal = {
+        x: [punktKoncowy[0]],
+        y: [punktKoncowy[1]],
+        mode: 'markers',
+        marker: { size: NODE_SIZE * 8, color: 'green' }
+    };
 
-    // const tracePath = path ? {
-    //     x: path.map(point => point[0]),
-    //     y: path.map(point => point[1]),
-    //     mode: 'lines',
-    //     line: { color: 'red', width: NODE_SIZE * 2 }
-    // } : {};
+    traces.push(traceGoal)
 
-    // const traceRoom = roomCoords.length > 1 ? {
-    //     x: roomCoords.map(coord => coord[0]).concat(roomCoords[0][0]),
-    //     y: roomCoords.map(coord => coord[1]).concat(roomCoords[0][1]),
-    //     mode: 'lines',
-    //     line: { color: 'orange', width: NODE_SIZE }
-    // } : {};
+    const tracePath = sciezka ? {
+        x: [],
+        y: [],
+        mode: 'lines',
+        line: { color: 'red', width: NODE_SIZE * 2 }
+    } : {};
+
+    for (const point of sciezka) {
+        tracePath.x.push(point[0]);
+        tracePath.y.push(point[1]);
+    }
+
+    traces.push(tracePath)
+
+    const traceRoom = wymiaryPomieszczenia && wymiaryPomieszczenia.length > 1 ? {
+        x: [],
+        y: [],
+        type: 'scatter',
+        mode: 'lines',
+        line: { color: 'orange', width: NODE_SIZE }
+    } : {};
+
+    if (wymiaryPomieszczenia && wymiaryPomieszczenia.length > 1) {
+        for (const coord of wymiaryPomieszczenia) {
+            traceRoom.x.push(coord[0]);
+            traceRoom.y.push(coord[1]);
+        }
+
+        traceRoom.x.push(wymiaryPomieszczenia[0][0]);
+        traceRoom.y.push(wymiaryPomieszczenia[0][1]);
+    }
+
+    traces.push(traceRoom);
+
 
     const layout = {
         autosize: false,
@@ -111,9 +127,6 @@ document.addEventListener("DOMContentLoaded", function() {
         yaxis: { scaleanchor: 'x', scaleratio: 1 },
     };
 
-    // Plotly.newPlot('plot-container', [traceObstacles, traceStart, traceGoal, tracePath, traceRoom], layout);
-    // Plotly.newPlot('plot-container', [traces, traceStart, traceGoal], layout);
-    // Plotly.newPlot('plot-container', [traceObstacles, traces], layout);
     Plotly.newPlot('plot-container', traces, layout);
 });
 
