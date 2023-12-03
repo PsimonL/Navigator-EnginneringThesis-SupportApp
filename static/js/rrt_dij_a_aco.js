@@ -1,5 +1,91 @@
-function generatePlot(startPt, goalPt, obstacles, roomCoords, path) {
+function generatePlot(punktStartowy, punktKoncowy, przeszkody, wymiaryPomieszczenia, sciezka) {
+    const NODE_SIZE = 1;
+    let traces = []
 
+
+    przeszkody.forEach((obstacle, index) => {
+        let rect_x = [obstacle[0], obstacle[0] + obstacle[2], obstacle[0] + obstacle[2], obstacle[0], obstacle[0]];
+        let rect_y = [obstacle[1], obstacle[1], obstacle[1] + obstacle[3], obstacle[1] + obstacle[3], obstacle[1]];
+        let trace = {
+            x: rect_x,
+            y: rect_y,
+            type: 'scatter',
+            mode: 'lines',
+            line: { color: 'blue' },
+            fill: 'toself',
+            fillcolor: 'blue',
+            name: `Przeszkoda ${index + 1}`
+        };
+        traces.push(trace)
+    });
+
+    const traceStart = {
+        x: [punktStartowy[0]],
+        y: [punktStartowy[1]],
+        mode: 'markers',
+        marker: { size: NODE_SIZE * 8, color: 'purple' },
+        name: 'Punkt Startowy'
+    };
+
+    traces.push(traceStart)
+
+    const traceGoal = {
+        x: [punktKoncowy[0]],
+        y: [punktKoncowy[1]],
+        mode: 'markers',
+        marker: { size: NODE_SIZE * 8, color: 'green' },
+        name: 'Punkt Końcowy'
+    };
+
+    traces.push(traceGoal)
+
+    const tracePath = sciezka ? {
+        x: [],
+        y: [],
+        mode: 'lines',
+        line: { color: 'red', width: NODE_SIZE * 2 },
+        name: 'Ścieżka'
+    } : {};
+
+    for (const point of sciezka) {
+        tracePath.x.push(point[0]);
+        tracePath.y.push(point[1]);
+    }
+
+    traces.push(tracePath)
+
+    const traceRoom = wymiaryPomieszczenia && wymiaryPomieszczenia.length > 1 ? {
+        x: [],
+        y: [],
+        type: 'scatter',
+        mode: 'lines',
+        line: { color: 'orange', width: NODE_SIZE },
+        name: 'Wymiary Pomieszczenia'
+    } : {};
+
+    if (wymiaryPomieszczenia && wymiaryPomieszczenia.length > 1) {
+        for (const coord of wymiaryPomieszczenia) {
+            traceRoom.x.push(coord[0]);
+            traceRoom.y.push(coord[1]);
+        }
+
+        traceRoom.x.push(wymiaryPomieszczenia[0][0]);
+        traceRoom.y.push(wymiaryPomieszczenia[0][1]);
+    }
+
+    traces.push(traceRoom);
+
+
+    const layout = {
+        autosize: false,
+        width: 800,
+        height: 800,
+        showlegend: false,
+        xaxis: { scaleanchor: 'y', scaleratio: 1 },
+        yaxis: { scaleanchor: 'x', scaleratio: 1 },
+    };
+
+    Plotly.newPlot('plot-container', traces, layout);
 
 }
 
@@ -45,89 +131,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let sciezka = JSON.parse(ret_path);
 
 
-    // generatePlot(start_point, goal_point, obstacles, room_coords, ret_path);
-    const NODE_SIZE = 1;
-    let traces = []
-
-
-    przeszkody.forEach(obstacle => {
-        let rect_x = [obstacle[0], obstacle[0] + obstacle[2], obstacle[0] + obstacle[2], obstacle[0], obstacle[0]];
-        let rect_y = [obstacle[1], obstacle[1], obstacle[1] + obstacle[3], obstacle[1] + obstacle[3], obstacle[1]];
-        let trace = {
-            x: rect_x,
-            y: rect_y,
-            type: 'scatter',
-            mode: 'lines',
-            line: { color: 'blue' },
-            fill: 'toself',
-            fillcolor: 'blue'
-        };
-        traces.push(trace)
-    });
-
-    const traceStart = {
-        x: [punktStartowy[0]],
-        y: [punktStartowy[1]],
-        mode: 'markers',
-        marker: { size: NODE_SIZE * 8, color: 'purple' }
-    };
-
-    traces.push(traceStart)
-
-    const traceGoal = {
-        x: [punktKoncowy[0]],
-        y: [punktKoncowy[1]],
-        mode: 'markers',
-        marker: { size: NODE_SIZE * 8, color: 'green' }
-    };
-
-    traces.push(traceGoal)
-
-    const tracePath = sciezka ? {
-        x: [],
-        y: [],
-        mode: 'lines',
-        line: { color: 'red', width: NODE_SIZE * 2 }
-    } : {};
-
-    for (const point of sciezka) {
-        tracePath.x.push(point[0]);
-        tracePath.y.push(point[1]);
-    }
-
-    traces.push(tracePath)
-
-    const traceRoom = wymiaryPomieszczenia && wymiaryPomieszczenia.length > 1 ? {
-        x: [],
-        y: [],
-        type: 'scatter',
-        mode: 'lines',
-        line: { color: 'orange', width: NODE_SIZE }
-    } : {};
-
-    if (wymiaryPomieszczenia && wymiaryPomieszczenia.length > 1) {
-        for (const coord of wymiaryPomieszczenia) {
-            traceRoom.x.push(coord[0]);
-            traceRoom.y.push(coord[1]);
-        }
-
-        traceRoom.x.push(wymiaryPomieszczenia[0][0]);
-        traceRoom.y.push(wymiaryPomieszczenia[0][1]);
-    }
-
-    traces.push(traceRoom);
-
-
-    const layout = {
-        autosize: false,
-        width: 800,
-        height: 800,
-        showlegend: false,
-        xaxis: { scaleanchor: 'y', scaleratio: 1 },
-        yaxis: { scaleanchor: 'x', scaleratio: 1 },
-    };
-
-    Plotly.newPlot('plot-container', traces, layout);
+    generatePlot(punktStartowy, punktKoncowy, przeszkody, wymiaryPomieszczenia, sciezka);
 });
 
 

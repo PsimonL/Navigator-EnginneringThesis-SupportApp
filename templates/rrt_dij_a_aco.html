@@ -35,13 +35,14 @@
             </div>
             <div id="white-divider"></div>
             <div id="right-section-large">
-                <p>Custom Block with Text</p>
+                <h2>Wizualizacja dla wprowadzonych danych:</h2>
                 <div id="plot-container"></div>
             </div>
         </div>
     </div>
     <div id="center-section">
-        <p>Dla podanych danych ścieżka została znaleziona, a jej koordynaty wynoszą:</p>
+        <h3>Dla podanych danych ścieżka została znaleziona, a jej koordynaty wynoszą:</h3>
+        <p></p>
         {% if ret_path %}
             <p>{{ ret_path | tojson | safe }}</p>
         {% endif %}
