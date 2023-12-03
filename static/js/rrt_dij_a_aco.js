@@ -1,35 +1,41 @@
 function generatePlot(startPt, goalPt, obstacles, roomCoords, path) {
     const NODE_SIZE = 1;
+    let traces = {}
 
-    const obstacle = [100, 1, 50, 350]; // Przykładowa przeszkoda [x, y, width, height]
+    const obstacless = [[100, 1, 50, 350], [200, 100, 50, 499], [350, 1, 50, 500]];
+    obstacless.forEach(obstacle => {
+        let rect_x = [obstacle[0], obstacle[0] + obstacle[2], obstacle[0] + obstacle[2], obstacle[0], obstacle[0]];
+        let rect_y = [obstacle[1], obstacle[1], obstacle[1] + obstacle[3], obstacle[1] + obstacle[3], obstacle[1]];
+        console.log("obstacle = " + obstacle)
+        console.log("rect_x = " + rect_x)
+        console.log("rect_y = " + rect_y)
+        let trace = {
+            x: rect_x,
+            y: rect_y,
+            type: 'scatter',
+            mode: 'lines',
+            line: { color: 'blue' },
+            fill: 'toself',
+            fillcolor: 'blue'
+        };
+        traces.push(trace);
+    });
 
-    const rect_x = [obstacle[0], obstacle[0] + obstacle[2], obstacle[0] + obstacle[2], obstacle[0], obstacle[0]];
-    const rect_y = [obstacle[1], obstacle[1], obstacle[1] + obstacle[3], obstacle[1] + obstacle[3], obstacle[1]];
-
-    const traceObstacles = {
-        x: rect_x,
-        y: rect_y,
-        type: 'scatter',
-        mode: 'lines',
-        line: { color: 'blue' },
-        fill: 'toself',
-        fillcolor: 'blue'
-    };
 
 
-    const traceStart = {
-        x: [startPt[0]],
-        y: [startPt[1]],
-        mode: 'markers',
-        marker: { size: NODE_SIZE * 8, color: 'yellow' }
-    };
-
-    const traceGoal = {
-        x: [goalPt[0]],
-        y: [goalPt[1]],
-        mode: 'markers',
-        marker: { size: NODE_SIZE * 8, color: 'green' }
-    };
+    // const traceStart = {
+    //     x: [startPt[0]],
+    //     y: [startPt[1]],
+    //     mode: 'markers',
+    //     marker: { size: NODE_SIZE * 8, color: 'yellow' }
+    // };
+    //
+    // const traceGoal = {
+    //     x: [goalPt[0]],
+    //     y: [goalPt[1]],
+    //     mode: 'markers',
+    //     marker: { size: NODE_SIZE * 8, color: 'green' }
+    // };
 
     // const tracePath = path ? {
     //     x: path.map(point => point[0]),
@@ -55,7 +61,10 @@ function generatePlot(startPt, goalPt, obstacles, roomCoords, path) {
     };
 
     // Plotly.newPlot('plot-container', [traceObstacles, traceStart, traceGoal, tracePath, traceRoom], layout);
-    Plotly.newPlot('plot-container', [traceObstacles, traceStart, traceGoal], layout);
+    // Plotly.newPlot('plot-container', [traces, traceStart, traceGoal], layout);
+    // Plotly.newPlot('plot-container', [traceObstacles, traces], layout);
+    Plotly.newPlot('plot-container', traces, layout);
+
 }
 
 document.addEventListener("DOMContentLoaded", function() {

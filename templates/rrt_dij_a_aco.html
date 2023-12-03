@@ -6,10 +6,6 @@
     <link rel="stylesheet" href="../static/css/rrt_dij_a_aco.css">
     {% block script %}
     <script>
-        const start_point = {{ start_point | tojson | safe }};
-        const goal_point = {{ goal_point | tojson | safe }};
-        const obstacles = {{ obstacles | tojson | safe }};
-        const room_coords = {{ room_coords | tojson | safe }};
         const ret_path = {{ ret_path | tojson | safe }};
     </script>
     {% endblock %}
