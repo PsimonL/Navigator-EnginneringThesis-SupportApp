@@ -117,13 +117,11 @@ document.addEventListener("DOMContentLoaded", function() {
     selectedSolutionBar.innerHTML = 'Wybrane rozwiązanie ';
     selectedSolutionBar.appendChild(algorithmNameElement);
 
-    const start_point = JSON.parse('{{ start_point|tojson|safe }}');
-    const goal_point = JSON.parse('{{ goal_point|tojson|safe }}');
-    const grid = JSON.parse('{{ grid|tojson|safe }}');
-    const obstacles = JSON.parse('{{ obstacles|tojson|safe }}');
-    const room_coords = JSON.parse('{{ room_coords|tojson|safe }}');
-    const ret_path = JSON.parse('{{ ret_path|tojson|safe }}');
-
+    console.log("start_point = ", start_point)
+    console.log("goal_point = ", goal_point)
+    console.log("obstacles = ", obstacles)
+    console.log("room_coords = ", room_coords)
+    console.log("ret_path = ", ret_path)
     // generatePlot(start_point, goal_point, obstacles, room_coords, ret_path);
 });
 
