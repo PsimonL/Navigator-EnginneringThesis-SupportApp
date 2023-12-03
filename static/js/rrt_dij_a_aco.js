@@ -1,8 +1,59 @@
 function generatePlot(startPt, goalPt, obstacles, roomCoords, path) {
+
+
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedAlgorithm = urlParams.get('selectedAlgorithm') || '__algo_name__';
+
+    const wymiaryPomieszczenia = JSON.parse(urlParams.get('wymiary_pomieszczenia')) || null;
+    const punktStartowy = JSON.parse(urlParams.get('punkt_startowy')) || null;
+    const punktKoncowy = JSON.parse(urlParams.get('punkt_koncowy')) || null;
+    const przeszkody = JSON.parse(urlParams.get('przeszkody')) || null;
+    const selectedSolutionBar = document.getElementById('selected-solution-bar');
+
+    console.log("Selected Algorithm:", selectedAlgorithm);
+    console.log("Wymiary Pomieszczenia:", wymiaryPomieszczenia);
+    console.log("Punkt Startowy:", punktStartowy);
+    console.log("Punkt Końcowy:", punktKoncowy);
+    console.log("Przeszkody:", przeszkody);
+
+    const wymiaryPomieszczeniaElement = document.getElementById('wymiaryPomieszczenia');
+    const punktStartowyElement = document.getElementById('punktStartowy');
+    const punktKoncowyElement = document.getElementById('punktKoncowy');
+    const przeszkodyElement = document.getElementById('przeszkody');
+
+    wymiaryPomieszczeniaElement.innerText = JSON.stringify(wymiaryPomieszczenia);
+    punktStartowyElement.innerText = JSON.stringify(punktStartowy);
+    punktKoncowyElement.innerText = JSON.stringify(punktKoncowy);
+    przeszkodyElement.innerText = JSON.stringify(przeszkody);
+
+    const algorithmNameElement = document.createElement('span');
+    algorithmNameElement.innerText = selectedAlgorithm;
+    algorithmNameElement.style.fontWeight = 'bold';
+
+    selectedSolutionBar.innerHTML = 'Wybrane rozwiązanie ';
+    selectedSolutionBar.appendChild(algorithmNameElement);
+
+    // console.log("start_point = ", start_point)
+    // console.log("goal_point = ", goal_point)
+    console.log("obstacles = ", obstacles)
+    // console.log("room_coords = ", room_coords)
+    // console.log("ret_path = ", ret_path)
+
+    // let start_point = JSON.parse(start_point)
+    // let goal_pointt = JSON.parse(goal_point)
+    let obstacless = JSON.parse(obstacles);
+    // let room_coordss = JSON.parse(room_coords)
+    // let ret_pathh = JSON.parse(ret_path)
+
+
+    // generatePlot(start_point, goal_point, obstacles, room_coords, ret_path);
     const NODE_SIZE = 1;
     let traces = []
 
-    const obstacless = [[100, 1, 50, 350], [200, 100, 50, 499], [350, 1, 50, 500]];
+    const chuj = [[100, 1, 50, 350], [200, 100, 50, 499], [350, 1, 50, 500]];
     obstacless.forEach(obstacle => {
         let rect_x = [obstacle[0], obstacle[0] + obstacle[2], obstacle[0] + obstacle[2], obstacle[0], obstacle[0]];
         let rect_y = [obstacle[1], obstacle[1], obstacle[1] + obstacle[3], obstacle[1] + obstacle[3], obstacle[1]];
@@ -64,49 +115,6 @@ function generatePlot(startPt, goalPt, obstacles, roomCoords, path) {
     // Plotly.newPlot('plot-container', [traces, traceStart, traceGoal], layout);
     // Plotly.newPlot('plot-container', [traceObstacles, traces], layout);
     Plotly.newPlot('plot-container', traces, layout);
-
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const selectedAlgorithm = urlParams.get('selectedAlgorithm') || '__algo_name__';
-
-    const wymiaryPomieszczenia = JSON.parse(urlParams.get('wymiary_pomieszczenia')) || null;
-    const punktStartowy = JSON.parse(urlParams.get('punkt_startowy')) || null;
-    const punktKoncowy = JSON.parse(urlParams.get('punkt_koncowy')) || null;
-    const przeszkody = JSON.parse(urlParams.get('przeszkody')) || null;
-    const selectedSolutionBar = document.getElementById('selected-solution-bar');
-
-    console.log("Selected Algorithm:", selectedAlgorithm);
-    console.log("Wymiary Pomieszczenia:", wymiaryPomieszczenia);
-    console.log("Punkt Startowy:", punktStartowy);
-    console.log("Punkt Końcowy:", punktKoncowy);
-    console.log("Przeszkody:", przeszkody);
-
-    const wymiaryPomieszczeniaElement = document.getElementById('wymiaryPomieszczenia');
-    const punktStartowyElement = document.getElementById('punktStartowy');
-    const punktKoncowyElement = document.getElementById('punktKoncowy');
-    const przeszkodyElement = document.getElementById('przeszkody');
-
-    wymiaryPomieszczeniaElement.innerText = JSON.stringify(wymiaryPomieszczenia);
-    punktStartowyElement.innerText = JSON.stringify(punktStartowy);
-    punktKoncowyElement.innerText = JSON.stringify(punktKoncowy);
-    przeszkodyElement.innerText = JSON.stringify(przeszkody);
-
-    const algorithmNameElement = document.createElement('span');
-    algorithmNameElement.innerText = selectedAlgorithm;
-    algorithmNameElement.style.fontWeight = 'bold';
-
-    selectedSolutionBar.innerHTML = 'Wybrane rozwiązanie ';
-    selectedSolutionBar.appendChild(algorithmNameElement);
-
-    console.log("start_point = ", start_point)
-    console.log("goal_point = ", goal_point)
-    console.log("obstacles = ", obstacles)
-    console.log("room_coords = ", room_coords)
-    console.log("ret_path = ", ret_path)
-
-    generatePlot(start_point, goal_point, obstacles, room_coords, ret_path);
 });
 
 
