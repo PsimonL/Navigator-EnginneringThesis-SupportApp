@@ -1,6 +1,6 @@
 function generatePlot(startPt, goalPt, obstacles, roomCoords, path) {
     const NODE_SIZE = 1;
-    let traces = {}
+    let traces = []
 
     const obstacless = [[100, 1, 50, 350], [200, 100, 50, 499], [350, 1, 50, 500]];
     obstacless.forEach(obstacle => {
@@ -18,7 +18,7 @@ function generatePlot(startPt, goalPt, obstacles, roomCoords, path) {
             fill: 'toself',
             fillcolor: 'blue'
         };
-        traces.push(trace);
+        traces.push(trace)
     });
 
 
