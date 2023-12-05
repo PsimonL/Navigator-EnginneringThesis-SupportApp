@@ -1,15 +1,19 @@
 from flask import Flask, render_template, request, jsonify
 import json
 import jsonpickle
+import torch
+
 
 from backend.models import db, Suggestions
 from backend.Graph_Algorithms.a_start_dijkstra.AStarDijkstra import a_star_dijkstra_driver
 from backend.Graph_Algorithms.rrt_rrt_star import RRT_RRT_Star
 from backend.Graph_Algorithms.ant_colony import AntColony
+from helpers import load_dqn_model
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///NavigatorDataBasetifier.sqlite'
 db.init_app(app)
+
 
 
 
@@ -29,6 +33,7 @@ def save_data():
 
     return jsonify({'message': 'Data saved successfully'})
 
+
 def get_input():
     selected_algorithm = request.args.get('selectedAlgorithm')
     wymiary_pomieszczenia = request.args.get('wymiary_pomieszczenia')
@@ -36,6 +41,7 @@ def get_input():
     punkt_koncowy = request.args.get('punkt_koncowy')
     przeszkody = request.args.get('przeszkody')
     return selected_algorithm, wymiary_pomieszczenia, punkt_startowy, punkt_koncowy, przeszkody
+
 
 @app.route('/')
 def main():
@@ -64,6 +70,7 @@ def dij_a_aco():
 
     return render_template('rrt_dij_a_aco.html')
 
+
 @app.route('/panel/rrt')
 def rrt():
     sel_alg, wp, ps, pk, p = get_input()
@@ -75,6 +82,14 @@ def rrt():
 def dqn():
     sel_alg, wp, ps, pk, p = get_input()
     print("selected_algorithm = ", sel_alg)
+
+    dqn_model = load_dqn_model()
+
+    input_data = 0
+
+    prediction = dqn_model.predict(input_data)
+
+    # return render_template('dqn.html', prediction=prediction)
     return render_template('dqn.html')
 
 

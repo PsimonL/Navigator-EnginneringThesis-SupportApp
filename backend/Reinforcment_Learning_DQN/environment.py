@@ -6,9 +6,6 @@ import geometry
 from typing import Tuple
 from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
-from numba import cuda, jit
-
-
 
 
 class RobotSimulation:
