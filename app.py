@@ -3,44 +3,22 @@ import json
 import jsonpickle
 import torch
 
-
 from backend.models import db, Suggestions
 from backend.Graph_Algorithms.a_start_dijkstra.AStarDijkstra import a_star_dijkstra_driver
 from backend.Graph_Algorithms.rrt_rrt_star import RRT_RRT_Star
 from backend.Graph_Algorithms.ant_colony import AntColony
-from helpers import load_dqn_model
+from helpers import load_dqn_model, save_data_to_database, get_input
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///NavigatorDataBasetifier.sqlite'
 db.init_app(app)
 
 
-
-
 @app.route('/save_data', methods=['POST'])
 def save_data():
     data = request.get_json()
-
-    suggestion = Suggestions(
-        problem_description=data['problem_description'],
-        name=data['name'],
-        email=data['email'],
-        phone=int(data['phone'])
-    )
-
-    db.session.add(suggestion)
-    db.session.commit()
-
-    return jsonify({'message': 'Data saved successfully'})
-
-
-def get_input():
-    selected_algorithm = request.args.get('selectedAlgorithm')
-    wymiary_pomieszczenia = request.args.get('wymiary_pomieszczenia')
-    punkt_startowy = request.args.get('punkt_startowy')
-    punkt_koncowy = request.args.get('punkt_koncowy')
-    przeszkody = request.args.get('przeszkody')
-    return selected_algorithm, wymiary_pomieszczenia, punkt_startowy, punkt_koncowy, przeszkody
+    result = save_data_to_database(data)
+    return result
 
 
 @app.route('/')
