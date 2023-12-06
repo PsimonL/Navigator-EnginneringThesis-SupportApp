@@ -1,3 +1,4 @@
+// import { handleFormSubmit } from './form_helper';
 document.addEventListener('DOMContentLoaded', function () {
     var loadButton = document.querySelector('.big-button');
     var submitButton = document.querySelector('#contact-form button[type="submit"]');
@@ -6,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = '/panel';
     });
 
+    // handleFormSubmit("problem_description", '/contact_data_save')
     submitButton.addEventListener('click', function (event) {
         event.preventDefault();
 
@@ -20,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (sugestionDescriptionInput && nameInput && emailInput && phoneNumberInput) {
-            console.log("Działa?")
             var problemDescription = sugestionDescriptionInput.value;
             var name = nameInput.value;
             var email = emailInput.value;
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 phone: phoneNumber
             };
 
-            fetch('/save_data', {
+            fetch('/contact_data_save', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

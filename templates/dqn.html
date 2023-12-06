@@ -10,8 +10,24 @@
     <header>
         <h1>Planer Trasy - Navigator</h1>
     </header>
-    <p>Welcome to dqn.html!</p>
-    <p>TODO: W zależności od wymogów użytkowników.</p>
+    <div class="init-info">
+        <h2>Wybrałeś opcję modelowania problemu przy pomocy agenta uczenia przez wzmocnienie i algorytmu Deep Q Networks.</h2>
+        <p>Oferowane rozwiązanie jednakże nie może zostać przedstawione w postaci gotowego rozwiązania z uwagi na charakterystykę
+        oraz naturę metody. W przypadku klasycznych sieci neuronowych modele można spakować do formatów .pkl lub .joblib, jednakże
+        w przypadku agenta przez wzmocnienie nie jest to zalecane. Jedyną sensowną metodą jest zapisanie wag sieci dla
+        stałych podstawowych warunków środowiska. Agent aby zaserwować odpowiedzi musi najpierw eskplorować, a kolejno
+        eksploatować środowisko. Aby uzyskać rozwiązanie tą metodą, wprowadź dane kontaktowe. Wcześniej wprowadzone
+            parametry środowiska zostaną zapisane w bazie danych.</p>
+    </div>
+    <div id="dqn-contact">
+        <form action="#" method="post">
+            <textarea name="problem_description" rows="5" cols="50" placeholder="Opisz problem"></textarea><br>
+            <input type="text" name="name" placeholder="Twoje imię"><br>
+            <input type="text" name="email" placeholder="Twój email"><br>
+            <input type="text" name="phone" placeholder="Twój numer telefonu (+48)"><br>
+            <button class="big-button" type="submit">Wyślij</button>
+        </form>
+    </div>
 
 </body>
 </html>
