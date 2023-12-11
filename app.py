@@ -1,82 +1,32 @@
-from flask import Flask, render_template, request, jsonify
+import os.path
+
+from flask import Flask, render_template, request
 import json
 import jsonpickle
 import torch
-
-# from backend.models import db
+from flask_sqlalchemy import SQLAlchemy
 from backend.Graph_Algorithms.a_start_dijkstra.AStarDijkstra import a_star_dijkstra_driver
 from backend.Graph_Algorithms.rrt_rrt_star import RRT_RRT_Star
 from backend.Graph_Algorithms.ant_colony import AntColony
-# from helpers import save_data_to_suggestions, get_input, save_data_to_dqn_request
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///NavigatorDataBase.sqlite'
-from flask_sqlalchemy import SQLAlchemy
-
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'NavigatorDataBase.sqlite')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+db.init_app(app)
 
-
-class Suggestions(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    problem_description = db.Column(db.String(255))
-    name = db.Column(db.String(100))
-    email = db.Column(db.String(100))
-    phone = db.Column(db.Integer, unique=True, nullable=False)
-
-class DQN_Requests(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    problem_description = db.Column(db.String(255))
-    name = db.Column(db.String(100))
-    email = db.Column(db.String(100))
-    phone = db.Column(db.Integer, unique=True, nullable=False)
-def save_data_to_dqn_request(data):
-    try:
-        dqn_request = DQN_Requests(
-            problem_description=data['problem_description'],
-            name=data['name'],
-            email=data['email'],
-            phone=int(data['phone'])
-        )
-
-        db.session.add(dqn_request)
-        db.session.commit()
-
-        return jsonify({'success': True, 'message': 'Data saved successfully'})
-    except Exception as e:
-        return jsonify({'success': False, 'message': f'Error: {str(e)}'})
-
-
-def save_data_to_suggestions(data):
-    try:
-        suggestion = Suggestions(
-            problem_description=data['problem_description'],
-            name=data['name'],
-            email=data['email'],
-            phone=int(data['phone'])
-        )
-
-        db.session.add(suggestion)
-        db.session.commit()
-
-        return jsonify({'success': True, 'message': 'Data saved successfully'})
-    except Exception as e:
-        return jsonify({'success': False, 'message': f'Error: {str(e)}'})
-
-
-def get_input():
-    selected_algorithm = request.args.get('selectedAlgorithm')
-    wymiary_pomieszczenia = request.args.get('wymiary_pomieszczenia')
-    punkt_startowy = request.args.get('punkt_startowy')
-    punkt_koncowy = request.args.get('punkt_koncowy')
-    przeszkody = request.args.get('przeszkody')
-    return selected_algorithm, wymiary_pomieszczenia, punkt_startowy, punkt_koncowy, przeszkody
+# It must declared be here
+from helpers import save_data_to_suggestions, get_input, save_data_to_dqn_request
 
 
 @app.route('/contact_data_save', methods=['POST'])
 def save_data():
     data = request.get_json()
     result = save_data_to_suggestions(data)
+    print(result)
     return result
+
 
 @app.route('/dqn_data_save', methods=['POST'])
 def dqn_data_save():
@@ -130,6 +80,8 @@ def dqn():
     print("selected_algorithm = ", sel_alg)
     return render_template('dqn.html')
 
+
 if __name__ == '__main__':
-    db.create_all()
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
