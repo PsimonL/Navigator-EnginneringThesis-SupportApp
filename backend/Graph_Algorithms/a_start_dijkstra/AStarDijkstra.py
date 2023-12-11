@@ -3,7 +3,7 @@ import time
 from backend.Graph_Algorithms.ConstVars import THRASH_NODES
 from backend.Graph_Algorithms.GeometryUtils import get_obstacles, is_obstacle_inside_room
 from backend.Graph_Algorithms.a_start_dijkstra.GridUtils import create_grid, find_nodes_by_coordinates
-from backend.Graph_Algorithms.a_start_dijkstra.Pathfinding import a_star_dijkstra
+from backend.Graph_Algorithms.a_start_dijkstra.Pathfinding import a_star, dijkstra
 from backend.Graph_Algorithms.a_start_dijkstra.UiUtils import ui_runner
 
 
@@ -30,9 +30,14 @@ def main(algorithm_choice):
     for item in sorted_thrash_set:
         print("Thrash node: {}".format(item))
 
+    ret_path = []
     if start_node and goal_node:
-        print("Starting A*")
-        ret_path = a_star_dijkstra(start_node, goal_node, algorithm_choice=algorithm_choice)
+        if algorithm_choice == "A*":
+            print(F"Starting {algorithm_choice}")
+            ret_path = a_star(start_node, goal_node)
+        elif algorithm_choice == "Dijkstra":
+            print(F"Starting {algorithm_choice}")
+            ret_path = dijkstra(start_node, goal_node)
     else:
         raise Exception("Nodes don't found!")
 
