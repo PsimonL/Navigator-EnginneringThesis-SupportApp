@@ -2,12 +2,8 @@ import os.path
 
 from flask import Flask, render_template, request
 import json
-import jsonpickle
-import torch
 from flask_sqlalchemy import SQLAlchemy
 from backend.Graph_Algorithms.a_start_dijkstra.AStarDijkstra import a_star_dijkstra_driver
-from backend.Graph_Algorithms.rrt_rrt_star import RRT_RRT_Star
-from backend.Graph_Algorithms.ant_colony import AntColony
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -17,7 +13,7 @@ db = SQLAlchemy(app)
 db.init_app(app)
 
 # It must declared be here
-from helpers import save_data_to_suggestions, get_input, save_data_to_dqn_request
+from backend.helpers import save_data_to_suggestions, get_input, save_data_to_dqn_request
 
 
 @app.route('/contact_data_save', methods=['POST'])
