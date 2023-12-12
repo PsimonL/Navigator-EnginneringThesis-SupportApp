@@ -1,5 +1,11 @@
 from backend.Graph_Algorithms.DiagonalDistanceUtils import diagonal_distance
+import networkx as nx
+from math import sqrt
 
+
+# def a_star_dijkstra(graph, start, goal):
+#     path = nx.astar_path(graph, start, goal, heuristic=diagonal_distance)
+#     return path
 
 def a_star(start, goal):
     open_set = []
@@ -23,6 +29,7 @@ def a_star(start, goal):
                     break
                 path.append((current_node.x, current_node.y))
                 current_node = current_node.parent_ptr
+            print("BEFORE RETURN")
             return path[::-1]
 
         open_set.remove(current_node)
@@ -86,3 +93,5 @@ def dijkstra(start, goal):
                     open_set.append(neighbor)
 
     return None
+
+
