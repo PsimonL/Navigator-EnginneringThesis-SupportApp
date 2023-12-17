@@ -10,6 +10,14 @@ document.addEventListener("DOMContentLoaded", function() {
     var punkt_koncowy;
     var przeszkody;
 
+    function showLoadingScreen() {
+        document.getElementById("loader-wrapper").style.display = "flex";
+    }
+
+    function hideLoadingScreen() {
+        document.getElementById("loader-wrapper").style.display = "none";
+    }
+
     fileInput.addEventListener("change", function() {
         if (fileInput.files.length > 0) {
             var file = fileInput.files[0];
@@ -61,6 +69,9 @@ document.addEventListener("DOMContentLoaded", function() {
             } else if (button.style.backgroundColor !== "rgb(76, 175, 80)") {
                 alert("Kliknij 'Wczytaj dane', aby umożliwić korzystanie z tej funkcji.");
             } else {
+                console.log("Before loader")
+                document.getElementById("loader").style.display = "flex";
+                console.log("After loader")
                 var selectedAlgorithm = button.textContent;
                 console.log("selectedAlgorithm = ", selectedAlgorithm)
                 var selectedPath;
@@ -71,6 +82,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 } else if (selectedAlgorithm === "RRT Algorithm" || selectedAlgorithm === "RRT* Algorithm"){
                     selectedPath = "/panel/rrt";
                 }
+
+                document.getElementById("loader").style.display = "none";
 
                 window.location.href = selectedPath + "?selectedAlgorithm=" + encodeURIComponent(selectedAlgorithm) +
                     "&wymiary_pomieszczenia=" + encodeURIComponent(JSON.stringify(wymiary_pomieszczenia)) +
