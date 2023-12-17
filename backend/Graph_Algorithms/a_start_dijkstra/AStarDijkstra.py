@@ -3,7 +3,8 @@ import time
 from backend.Graph_Algorithms.ConstVars import THRASH_NODES
 from backend.Graph_Algorithms.GeometryUtils import get_obstacles, is_obstacle_inside_room
 from backend.Graph_Algorithms.a_start_dijkstra.GridUtils import create_grid, find_nodes_by_coordinates
-from backend.Graph_Algorithms.a_start_dijkstra.Pathfinding import a_star_dijkstra
+from backend.Graph_Algorithms.a_start_dijkstra.Pathfinding import a_star, dijkstra
+# from backend.Graph_Algorithms.a_start_dijkstra.Pathfinding import a_star_dijkstra
 from backend.Graph_Algorithms.a_start_dijkstra.UiUtils import ui_runner
 
 
@@ -26,13 +27,17 @@ def main(algorithm_choice):
     start_node = find_nodes_by_coordinates(grid=grid, x=start_point[0], y=start_point[1])
     goal_node = find_nodes_by_coordinates(grid=grid, x=goal_point[0], y=goal_point[1])
 
-    sorted_thrash_set = sorted(THRASH_NODES, key=lambda node: (node.x, node.y))
-    for item in sorted_thrash_set:
-        print("Thrash node: {}".format(item))
+    # sorted_thrash_set = sorted(THRASH_NODES, key=lambda node: (node.x, node.y))
+    # for item in sorted_thrash_set:
+    #     print("Thrash node: {}".format(item))
 
+    ret_path = None
     if start_node and goal_node:
-        print("Starting A*")
-        ret_path = a_star_dijkstra(start_node, goal_node, algorithm_choice=algorithm_choice)
+        print(f"Starting {algorithm_choice}")
+        if algorithm_choice == "A* Algorithm":
+            ret_path = a_star(start_node, goal_node)
+        elif algorithm_choice == "Dijkstra's Algorithm":
+            ret_path = dijkstra(start_node, goal_node)
     else:
         raise Exception("Nodes don't found!")
 
@@ -46,7 +51,6 @@ def main(algorithm_choice):
     end_time = time.time()
     execution_time = end_time - start_time
     print(f"Czas wykonania algorytmu: {execution_time} sekundy")
-    # ui_runner(start_point, goal_point, grid, obstacles, room_coords, ret_path)
     return start_point, goal_point, obstacles_coords, room_coords, ret_path
 
 

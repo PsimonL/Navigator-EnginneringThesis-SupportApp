@@ -71,3 +71,35 @@ p {
 #load-data-btn:hover {
     background-color: #e79c0a;
 }
+
+#background {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100vh;
+}
+
+#loader {
+	width: 4em;
+	height: 4em;
+	background-color: white;
+	/*display: flex;*/
+	align-items: center;
+	justify-content: center;
+	border: 3px solid lightgrey;
+	border-bottom-color: #e79c0a;
+	border-radius: 2em;
+	animation: loader-animation 1s linear infinite;
+    display: none;
+}
+
+@keyframes loader-animation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
